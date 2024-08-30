@@ -12,8 +12,26 @@
         :class="useAmountColorClass(entry.amount)"
         class="text-weight-bold"
       >
-        >
         {{ entry.name }}
+        <q-popup-edit
+          :model-value="entry.name"
+          auto-save
+          v-slot="scope"
+          anchor="top left"
+          :offset="[16, 12]"
+          :cover="false"
+          buttons
+          label-set="Ok"
+          @save="onNameUpdate"
+        >
+          <q-input
+            input-class="text-weight-bold letter-spacing-none"
+            v-model="scope.value"
+            dense
+            autofocus
+            @keyup.enter="scope.set"
+          />
+        </q-popup-edit>
       </q-item-section>
 
       <q-item-section
@@ -22,6 +40,27 @@
         class="text-weight-bold"
       >
         {{ useCurrencify(entry.amount) }}
+        <q-popup-edit
+          @save="onAmountUpdate"
+          :model-value="entry.amount"
+          auto-save
+          v-slot="scope"
+          anchor="top left"
+          :offset="[16, 12]"
+          :cover="false"
+          buttons
+          label-set="Ok"
+        >
+          <q-input
+            input-class="text-weight-bold letter-spacing-none text-right"
+            v-model.number="scope.value"
+            dense
+            autofocus
+            @keyup.enter="scope.set"
+            type="number"
+            step="0.1"
+          />
+        </q-popup-edit>
       </q-item-section>
     </q-item>
   </q-slide-item>
@@ -45,7 +84,9 @@ const onEntrySlideRight = (details) => {
     message: `Delete this entry?
               <div class="q-mt-md text-weight-bold ${useAmountColorClass(
                 props.entry.amount
-              )}"> ${props.entry.name} : ${useCurrencify(props.entry.amount)}</div>              
+              )}"> ${props.entry.name} : ${useCurrencify(
+      props.entry.amount
+    )}</div>              
 `,
     cancel: true,
     persistent: true,
@@ -67,5 +108,12 @@ const onEntrySlideRight = (details) => {
     .onCancel(() => {
       details.reset();
     });
+};
+
+const onNameUpdate = (value) => {
+  storeEntries.updateEntry(props.entry.id, { name: value });
+};
+const onAmountUpdate = (value) => {
+  storeEntries.updateEntry(props.entry.id, { amount: value });
 };
 </script>

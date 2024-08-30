@@ -37,10 +37,18 @@ export const useStoreEntries = defineStore("entries", () => {
     entries.value.push(newEntry);
   };
   const deleteEntry = (entryId) => {
-    const index = entries.value.findIndex((entry) => entry.id === entryId);
+    const index = getEntryIndexById(entryId);
     entries.value.splice(index, 1);
     Notify.create({ message: "Entry deleted", position: "top" });
   };
+  const updateEntry = (entryId, updates) => {
+    const index = getEntryIndexById(entryId);
+    Object.assign(entries.value[index], updates);
+  };
 
-  return { entries, balance, addEntry, deleteEntry };
+  // helpers
+
+  const getEntryIndexById = entryId => entries.value.findIndex((entry) => entry.id === entryId);
+
+  return { entries, balance, addEntry, deleteEntry, updateEntry };
 });
