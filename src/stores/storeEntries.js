@@ -10,30 +10,37 @@ export const useStoreEntries = defineStore("entries", () => {
       id: "1",
       name: "Salary",
       amount: 4999.99,
+      paid: false,
     },
     {
       id: "2",
       name: "Rent",
       amount: -999,
+      paid: false,
     },
     {
       id: "3",
       name: "Phone",
       amount: -14.99,
+      paid: false,
     },
     {
       id: "4",
       name: "Unknown",
       amount: 0,
+      paid: false,
     },
   ]);
   // getters
   const balance = computed(() =>
     entries.value.reduce((sum, element) => sum + element.amount, 0)
   );
+  const balancePaid = computed(() =>
+    entries.value.reduce((sum, element) => element.paid ? sum + element.amount : sum, 0)
+  );
   // actions
   const addEntry = (addEntryForm) => {
-    const newEntry = Object.assign({}, addEntryForm, { id: uid() });
+    const newEntry = Object.assign({}, addEntryForm, { id: uid(), paid: false });
     entries.value.push(newEntry);
   };
   const deleteEntry = (entryId) => {
@@ -48,7 +55,8 @@ export const useStoreEntries = defineStore("entries", () => {
 
   // helpers
 
-  const getEntryIndexById = entryId => entries.value.findIndex((entry) => entry.id === entryId);
+  const getEntryIndexById = (entryId) =>
+    entries.value.findIndex((entry) => entry.id === entryId);
 
-  return { entries, balance, addEntry, deleteEntry, updateEntry };
+  return { entries, balance, balancePaid, addEntry, deleteEntry, updateEntry };
 });

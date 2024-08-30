@@ -1,15 +1,20 @@
 <template>
   <q-slide-item
+    @left="onEntrySlideLeft"
     @right="onEntrySlideRight"
     left-color="positive"
     right-color="negative"
+    :class="{ 'bg-grey-2': entry.paid}"
   >
+    <template v-slot:left>
+      <q-icon name="done" />
+    </template>
     <template v-slot:right>
       <q-icon name="delete" />
     </template>
     <q-item>
       <q-item-section
-        :class="useAmountColorClass(entry.amount)"
+        :class="[useAmountColorClass(entry.amount), { 'text-strike': entry.paid}]"
         class="text-weight-bold"
       >
         {{ entry.name }}
@@ -36,7 +41,7 @@
 
       <q-item-section
         side
-        :class="useAmountColorClass(entry.amount)"
+        :class="[useAmountColorClass(entry.amount), { 'text-strike': entry.paid}]"
         class="text-weight-bold"
       >
         {{ useCurrencify(entry.amount) }}
@@ -78,6 +83,7 @@ const storeEntries = useStoreEntries();
 
 const props = defineProps({ entry: { type: Object, required: true } });
 
+// slide items
 const onEntrySlideRight = (details) => {
   $q.dialog({
     title: "Delete",
@@ -109,7 +115,12 @@ const onEntrySlideRight = (details) => {
       details.reset();
     });
 };
+const onEntrySlideLeft = (details) => {
+  storeEntries.updateEntry(props.entry.id, { paid: !props.entry.paid });
+  details.reset();
+};
 
+// name & amount update
 const onNameUpdate = (value) => {
   storeEntries.updateEntry(props.entry.id, { name: value });
 };
