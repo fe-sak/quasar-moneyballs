@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { Notify, uid } from "quasar";
-import { computed } from "vue";
+import { computed, reactive } from "vue";
 import { ref } from "vue";
 
 export const useStoreEntries = defineStore("entries", () => {
@@ -31,16 +31,25 @@ export const useStoreEntries = defineStore("entries", () => {
       paid: false,
     },
   ]);
+  const options = reactive({ sort: false });
+
   // getters
   const balance = computed(() =>
     entries.value.reduce((sum, element) => sum + element.amount, 0)
   );
   const balancePaid = computed(() =>
-    entries.value.reduce((sum, element) => element.paid ? sum + element.amount : sum, 0)
+    entries.value.reduce(
+      (sum, element) => (element.paid ? sum + element.amount : sum),
+      0
+    )
   );
+
   // actions
   const addEntry = (addEntryForm) => {
-    const newEntry = Object.assign({}, addEntryForm, { id: uid(), paid: false });
+    const newEntry = Object.assign({}, addEntryForm, {
+      id: uid(),
+      paid: false,
+    });
     entries.value.push(newEntry);
   };
   const deleteEntry = (entryId) => {
@@ -52,11 +61,29 @@ export const useStoreEntries = defineStore("entries", () => {
     const index = getEntryIndexById(entryId);
     Object.assign(entries.value[index], updates);
   };
+  const sortEnd = ({ oldIndex, newIndex }) => {
+    const movedEntry = entries.value[oldIndex];
+    entries.value.splice(oldIndex, 1);
+    entries.value.splice(newIndex, 0, movedEntry);
+  };
 
   // helpers
-
   const getEntryIndexById = (entryId) =>
     entries.value.findIndex((entry) => entry.id === entryId);
 
-  return { entries, balance, balancePaid, addEntry, deleteEntry, updateEntry };
+  return {
+    // state
+    entries,
+    options,
+
+    // getters
+    balance,
+    balancePaid,
+
+    // actions
+    addEntry,
+    deleteEntry,
+    updateEntry,
+    sortEnd,
+  };
 });

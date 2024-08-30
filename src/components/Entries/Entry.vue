@@ -4,7 +4,7 @@
     @right="onEntrySlideRight"
     left-color="positive"
     right-color="negative"
-    :class="{ 'bg-grey-2': entry.paid}"
+    :class="{ 'bg-grey-2': entry.paid }"
   >
     <template v-slot:left>
       <q-icon name="done" />
@@ -14,7 +14,10 @@
     </template>
     <q-item>
       <q-item-section
-        :class="[useAmountColorClass(entry.amount), { 'text-strike': entry.paid}]"
+        :class="[
+          useAmountColorClass(entry.amount),
+          { 'text-strike': entry.paid },
+        ]"
         class="text-weight-bold"
       >
         {{ entry.name }}
@@ -41,7 +44,10 @@
 
       <q-item-section
         side
-        :class="[useAmountColorClass(entry.amount), { 'text-strike': entry.paid}]"
+        :class="[
+          useAmountColorClass(entry.amount),
+          { 'text-strike': entry.paid },
+        ]"
         class="text-weight-bold"
       >
         {{ useCurrencify(entry.amount) }}
@@ -66,6 +72,10 @@
             step="0.1"
           />
         </q-popup-edit>
+      </q-item-section>
+
+      <q-item-section v-if="storeEntries.options.sort" side>
+        <q-icon name="reorder" color="primary" class="handle"></q-icon>
       </q-item-section>
     </q-item>
   </q-slide-item>

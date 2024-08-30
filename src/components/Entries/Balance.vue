@@ -11,7 +11,10 @@
         </div>
       </div>
       <div class="row" v-if="storeEntries.balancePaid">
-        <div class="col text-caption -text-grey-6">
+        <div
+          class="col text-caption -text-grey-6"
+          :class="useAmountColorClass(storeEntries.balancePaid)"
+        >
           Paid:
           <span
             class="text-weight-bold"

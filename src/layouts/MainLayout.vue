@@ -2,7 +2,14 @@
   <q-layout view="hHh lpR lFf">
     <q-header elevated>
       <q-toolbar>
-        <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
+        <q-btn
+          flat
+          dense
+          round
+          icon="menu"
+          aria-label="Menu"
+          @click="toggleLeftDrawer"
+        />
 
         <q-toolbar-title>
           <div class="absolute-center">
@@ -11,7 +18,14 @@
           </div>
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
+        <q-btn
+          v-if="$route.fullPath === '/'"
+          :label="!storeEntries.options.sort ? 'Sort' : 'Done'"
+          flat
+          no-caps
+          dense
+          @click="storeEntries.options.sort = !storeEntries.options.sort"
+        ></q-btn>
       </q-toolbar>
     </q-header>
 
@@ -39,11 +53,13 @@
 <script setup>
 import { ref } from "vue";
 import NavLink from "components/Nav/NavLink.vue";
+import { useStoreEntries } from "src/stores/storeEntries";
 
 defineOptions({
   name: "MainLayout",
 });
 
+const storeEntries = useStoreEntries();
 const navLinks = [
   {
     title: "Entries",

@@ -26,3 +26,18 @@ input::-webkit-inner-spin-button {
       text-transform: none;
    }
 }
+
+// entries
+.entries {
+   .q-slide-item {
+      border: 1px solid rgba(0, 0, 0, 0.12);
+
+      &:not(:first-child) {
+         margin-top: -1px;
+      }
+   }
+
+   .sortable-ghosst {
+      opacity: 0;
+   }
+}
