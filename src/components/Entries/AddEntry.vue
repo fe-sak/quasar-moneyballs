@@ -29,8 +29,8 @@
     </div>
     <div class="col col-auto">
       <q-btn color="primary" icon="add" round type="submit"></q-btn>
-    </div> </q-form
-  >/template>
+    </div>
+  </q-form>
 </template>
 <script setup>
 import { useStoreEntries } from "src/stores/storeEntries";
