@@ -1,6 +1,6 @@
 <template>
-  <q-page >
-    <div class="q-pa-md" >
+  <q-page>
+    <div class="q-pa-md">
       <q-list bordered padding>
         <q-item-label header>Entries</q-item-label>
 
@@ -9,7 +9,16 @@
             <q-item-label>Prompt to Delete</q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-toggle v-model="storeSettings.settings.promptToDelete"/>
+            <q-toggle v-model="storeSettings.settings.promptToDelete" />
+          </q-item-section>
+        </q-item>
+
+        <q-item tag="label" v-ripple>
+          <q-item-section>
+            <q-item-label>Show Running Balance</q-item-label>
+          </q-item-section>
+          <q-item-section side>
+            <q-toggle v-model="storeSettings.settings.showRunningBalance" />
           </q-item-section>
         </q-item>
       </q-list>
@@ -18,7 +27,7 @@
 </template>
 
 <script setup>
-import { useStoreSettings } from 'src/stores/storeSettings';
+import { useStoreSettings } from "src/stores/storeSettings";
 
 const storeSettings = useStoreSettings();
 </script>

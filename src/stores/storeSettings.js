@@ -2,22 +2,24 @@ import { defineStore } from "pinia";
 import { reactive } from "vue";
 
 export const useStoreSettings = defineStore("settings", () => {
-   const settings = reactive({
-      promptToDelete: true,
-   });
+  const settings = reactive({
+    promptToDelete: true,
+    showRunningBalance: true,
+  });
+
   // state
-  
+
   // getters
-  
+
   // actions
-  
+
   // helpers
-  
+
   return {
     // state
-    settings
+    settings,
     // getters
-  
+
     // actions
   };
 });
