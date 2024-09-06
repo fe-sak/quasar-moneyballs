@@ -89,15 +89,30 @@ import { useStoreEntries } from "src/stores/storeEntries";
 import { useAmountColorClass } from "src/use/useAmountColorClass";
 import { useCurrencify } from "src/use/useCurrencify";
 import vSelectAll from "src/directives/directiveSelectAll";
+import { useStoreSettings } from "src/stores/storeSettings";
 
 const $q = useQuasar();
 
 const storeEntries = useStoreEntries();
+const storeSettings = useStoreSettings();
 
 const props = defineProps({ entry: { type: Object, required: true } });
 
 // slide items
-const onEntrySlideRight = (details) => {
+const onEntrySlideRight = ({ reset }) => {
+  if (storeSettings.settings.promptToDelete) {
+    promptToDelete(reset);
+  } else {
+    storeEntries.deleteEntry(props.entry.id);
+  }
+};
+
+const onEntrySlideLeft = ({ reset }) => {
+  storeEntries.updateEntry(props.entry.id, { paid: !props.entry.paid });
+  reset();
+};
+
+const promptToDelete = (reset) => {
   $q.dialog({
     title: "Delete",
     message: `Delete this entry?
@@ -122,15 +137,11 @@ const onEntrySlideRight = (details) => {
   })
     .onOk(() => {
       storeEntries.deleteEntry(props.entry.id);
-      details.reset();
+      reset();
     })
     .onCancel(() => {
-      details.reset();
+      reset();
     });
-};
-const onEntrySlideLeft = (details) => {
-  storeEntries.updateEntry(props.entry.id, { paid: !props.entry.paid });
-  details.reset();
 };
 
 // name & amount update
