@@ -37,6 +37,7 @@
             v-model="scope.value"
             dense
             autofocus
+            v-select-all
             @keyup.enter="scope.set"
           />
         </q-popup-edit>
@@ -70,6 +71,7 @@
             @keyup.enter="scope.set"
             type="number"
             step="0.1"
+            v-select-all
           />
         </q-popup-edit>
       </q-item-section>
@@ -86,6 +88,7 @@ import { useQuasar } from "quasar";
 import { useStoreEntries } from "src/stores/storeEntries";
 import { useAmountColorClass } from "src/use/useAmountColorClass";
 import { useCurrencify } from "src/use/useCurrencify";
+import vSelectAll from "src/directives/directiveSelectAll";
 
 const $q = useQuasar();
 

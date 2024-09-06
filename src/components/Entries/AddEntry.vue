@@ -11,6 +11,7 @@
         dense
         outlined
         bg-color="white"
+        v-select-all
       ></q-input>
     </div>
     <div class="col">
@@ -23,6 +24,7 @@
         input-class="text-right"
         type="number"
         step="0.01"
+        v-select-all
       ></q-input>
     </div>
     <div class="col col-auto">
@@ -33,6 +35,7 @@
 <script setup>
 import { useStoreEntries } from "src/stores/storeEntries";
 import { reactive, ref } from "vue";
+import vSelectAll from "src/directives/directiveSelectAll";
 
 const storeEntries = useStoreEntries();
 
