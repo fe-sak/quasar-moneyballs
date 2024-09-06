@@ -1,9 +1,11 @@
 <template>
   <q-page>
     <div class="q-pa-md">
-      <NothingHere v-if="!storeEntries.entries.length" />
+      <transition appear enter-active-class="animated jackInTheBox slower">
+        <NothingHere v-if="!storeEntries.entries.length" />
+      </transition>
 
-      <q-list v-else class="entries">
+      <q-list v-if="storeEntries.entries.length" class="entries">
         <Sortable
           :list="storeEntries.entries"
           item-key="id"
