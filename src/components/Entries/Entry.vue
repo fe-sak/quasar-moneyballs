@@ -78,10 +78,10 @@
           outline
           size="9px"
           dense
-          :class="useAmountColorClass(12.56)"
+          :class="useAmountColorClass(storeEntries.runningBalances[index])"
           class="absolute-bottom-right running-balance"
         >
-          {{ useCurrencify(12.56) }}
+          {{ useCurrencify(storeEntries.runningBalances[index]) }}
         </q-chip>
       </q-item-section>
 
@@ -105,7 +105,16 @@ const $q = useQuasar();
 const storeEntries = useStoreEntries();
 const storeSettings = useStoreSettings();
 
-const props = defineProps({ entry: { type: Object, required: true } });
+const props = defineProps({
+  entry: {
+    type: Object,
+    required: true,
+  },
+  index: {
+    type: Number,
+    required: true,
+  },
+});
 
 // slide items
 const onEntrySlideRight = ({ reset }) => {

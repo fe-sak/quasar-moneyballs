@@ -14,7 +14,7 @@
           @end="storeEntries.sortEnd"
         >
           <template #item="{ element, index }">
-            <Entry :entry="element" :keys="element.id" />
+            <Entry :entry="element" :keys="element.id" :index="index" />
           </template>
         </Sortable>
       </q-list>
