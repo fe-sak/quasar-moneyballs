@@ -21,6 +21,17 @@
             <q-toggle v-model="storeSettings.settings.showRunningBalance" />
           </q-item-section>
         </q-item>
+
+        <q-item tag="label" v-ripple>
+          <q-item-section>
+            <q-input
+              v-model="storeSettings.settings.currencySymbol"
+              label="Currency Symbol"
+              outlined
+              v-select-all
+            ></q-input>
+          </q-item-section>
+        </q-item>
       </q-list>
     </div>
   </q-page>
@@ -28,6 +39,7 @@
 
 <script setup>
 import { useStoreSettings } from "src/stores/storeSettings";
+import vSelectAll from "src/directives/directiveSelectAll";
 
 const storeSettings = useStoreSettings();
 </script>
