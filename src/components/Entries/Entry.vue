@@ -12,7 +12,7 @@
     <template v-slot:right>
       <q-icon name="delete" />
     </template>
-    <q-item>
+    <q-item class="row">
       <q-item-section
         :class="[
           useAmountColorClass(entry.amount),
@@ -45,8 +45,8 @@
 
       <q-item-section
         side
+        class="text-weight-bold relative-position col"
         :class="[useAmountColorClass(entry.amount)]"
-        class="text-weight-bold"
       >
         <span :class="{ 'text-strike': entry.paid }">
           {{ useCurrencify(entry.amount) }}
@@ -56,7 +56,8 @@
           :model-value="entry.amount"
           auto-save
           v-slot="scope"
-          anchor="top left"
+          anchor="top right"
+          self="top right"
           :offset="[16, 12]"
           :cover="false"
           buttons
