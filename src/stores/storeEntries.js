@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
-import { Notify, uid } from "quasar";
-import { computed, reactive } from "vue";
+import { Notify, uid, LocalStorage } from "quasar";
+import { computed, reactive, watch } from "vue";
 import { ref } from "vue";
 
 export const useStoreEntries = defineStore("entries", () => {
@@ -31,12 +31,18 @@ export const useStoreEntries = defineStore("entries", () => {
       paid: false,
     },
   ]);
+
+  watch(entries.value, () => {
+    saveEntries();
+  });
+
   const options = reactive({ sort: false });
 
   // getters
   const balance = computed(() =>
     entries.value.reduce((sum, element) => sum + element.amount, 0)
   );
+
   const balancePaid = computed(() =>
     entries.value.reduce(
       (sum, element) => (element.paid ? sum + element.amount : sum),
@@ -82,6 +88,16 @@ export const useStoreEntries = defineStore("entries", () => {
     entries.value.splice(oldIndex, 1);
     entries.value.splice(newIndex, 0, movedEntry);
   };
+  const saveEntries = () => {
+    LocalStorage.set("entries", entries.value);
+  };
+  const loadEntries = () => {
+    const savedEntries = LocalStorage.getItem("entries");
+
+    if (savedEntries) {
+      Object.assign(entries.value, savedEntries);
+    }
+  };
 
   // helpers
   const getEntryIndexById = (entryId) =>
@@ -100,5 +116,6 @@ export const useStoreEntries = defineStore("entries", () => {
     deleteEntry,
     updateEntry,
     sortEnd,
+    loadEntries,
   };
 });
