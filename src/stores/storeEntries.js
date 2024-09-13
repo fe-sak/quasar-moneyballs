@@ -10,7 +10,7 @@ export const useStoreEntries = defineStore("entries", () => {
       id: "1",
       name: "Salary",
       amount: 4999.99,
-      paid: false,
+      paid: true,
     },
     {
       id: "2",
@@ -45,15 +45,16 @@ export const useStoreEntries = defineStore("entries", () => {
   );
 
   const runningBalances = computed(() => {
-    let runningBalances = [], currentRunningBalance = 0;
+    let runningBalances = [],
+      currentRunningBalance = 0;
 
     if (entries.value.length) {
-      entries.value.forEach(entry => {
+      entries.value.forEach((entry) => {
         let entryAmount = entry.amount ? entry.amount : 0;
 
         currentRunningBalance += entryAmount;
         runningBalances.push(currentRunningBalance);
-      })
+      });
     }
 
     return runningBalances;
