@@ -36,6 +36,15 @@ export const useStoreSettings = defineStore("settings", () => {
   const saveSettings = () => {
     LocalStorage.set("settings", settings);
   };
+
+  const loadSettings = () => {
+    const savedSettings = LocalStorage.getItem("settings");
+
+    if (savedSettings) {
+      Object.assign(settings, savedSettings);
+    }
+  };
+
   // helpers
 
   return {
@@ -44,5 +53,6 @@ export const useStoreSettings = defineStore("settings", () => {
     // getters
 
     // actions
+    loadSettings,
   };
 });
