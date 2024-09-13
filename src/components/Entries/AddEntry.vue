@@ -10,7 +10,7 @@
         placeholder="Name"
         dense
         outlined
-        bg-color="white"
+        :bg-color="useLightOrDark('white', 'black')"
         v-select-all
       ></q-input>
     </div>
@@ -20,7 +20,7 @@
         placeholder="Amount"
         dense
         outlined
-        bg-color="white"
+        :bg-color="useLightOrDark('white', 'black')"
         input-class="text-right"
         type="number"
         step="0.01"
@@ -36,7 +36,7 @@
 import { useStoreEntries } from "src/stores/storeEntries";
 import { reactive, ref } from "vue";
 import vSelectAll from "src/directives/directiveSelectAll";
-
+import { useLightOrDark } from "src/use/useLightOrDark.js";
 const storeEntries = useStoreEntries();
 
 const nameRef = ref(null);
