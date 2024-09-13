@@ -6,6 +6,7 @@ export const useStoreSettings = defineStore("settings", () => {
     promptToDelete: true,
     showRunningBalance: false,
     currencySymbol: "$",
+    darkMode: false, // false | true | 'auto' 
   });
 
   // state
