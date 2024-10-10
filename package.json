@@ -7,6 +7,9 @@
   "private": true,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0",
+    "icons": "icongenie generate -i app-icon.png --skip-trim",
+    "dev:android": "quasar dev -m capacitor -T android",
+    "build:android": "quasar build -m capacitor -T android --ide",
     "dev": "quasar dev",
     "build": "quasar build"
   },

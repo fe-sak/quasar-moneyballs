@@ -152,6 +152,10 @@ module.exports = configure(function (/* ctx */) {
     capacitor: {
       hideSplashscreen: true,
     },
+    
+    bin: {
+      linuxAndroidStudio: "/home/exati/.local/share/JetBrains/Toolbox/apps/android-studio/bin/studio.sh",
+    },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/configuring-electron
     electron: {
